@@ -31,7 +31,7 @@ describe('TodoItem', () => {
     expect(toggleButton).toBeInTheDocument();
   });
 
-  test('calls the dispatch function when clicking toggle button', () => {
+  test('it calls the dispatch function when clicking toggle button', () => {
     const mockDispatch = jest.fn();
     useDispatchMock.mockReturnValue(mockDispatch);
     render(<TodoItem todo={todoItem} />);
