@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 function AddTodoItem(): JSX.Element {
@@ -16,14 +16,14 @@ function AddTodoItem(): JSX.Element {
   };
 
   return (
-    <Fragment>
+    <div data-testid="AddTodoItem">
       <label>
         Todo Text:
         <input type="text" value={text} onChange={e => setText(e.target.value)} />
       </label>
       <button onClick={handleOnClick}>Add Todo Item</button>
       {error && <h2>{error}</h2>}
-    </Fragment>
+    </div>
   );
 }
 

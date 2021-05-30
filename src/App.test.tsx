@@ -8,13 +8,23 @@ import appReducer from './reducer';
 const store = createStore(appReducer);
 
 describe('App', () => {
-  test('renders learn react link', () => {
+  test('it renders the todo list', () => {
     render(
       <Provider store={store}>
         <App />
       </Provider>
     );
-    const linkElement = screen.getByText(/learn react/i);
-    expect(linkElement).toBeInTheDocument();
+    const todoList = screen.getByTestId('TodoList');
+    expect(todoList).toBeInTheDocument();
+  });
+
+  test('it renders the add todo item component', () => {
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+    const addTodoItem = screen.getByTestId('AddTodoItem');
+    expect(addTodoItem).toBeInTheDocument();
   });
 });
