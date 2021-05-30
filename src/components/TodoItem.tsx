@@ -12,9 +12,9 @@ type TodoType = {
 };
 
 function TodoItem({ todo }: ITodoItem): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch: Function = useDispatch();
 
-  const toggleTodoItem = () => {
+  const toggleTodoItem = (): void => {
     dispatch({ type: 'todos/todoToggled', payload: todo.id });
   };
 
