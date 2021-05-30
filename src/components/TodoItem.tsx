@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface ITodoItem {
   todo: TodoType;
@@ -12,10 +12,17 @@ type TodoType = {
 };
 
 function TodoItem({ todo }: ITodoItem): JSX.Element {
+  const dispatch = useDispatch();
+
+  const toggleTodoItem = () => {
+    dispatch({ type: 'todos/todoToggled', payload: todo.id });
+  };
+
   return (
-    <Fragment>
-      <h3>{todo.text}</h3>
-    </Fragment>
+    <div data-testid="TodoItem">
+      <h3>{todo.text} | {todo.completed ? "Complete" : "Incomplete"}</h3>
+      <button onClick={toggleTodoItem}>Toggle Status</button>
+    </div>
   );
 }
 

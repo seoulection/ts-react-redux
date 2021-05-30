@@ -2,6 +2,11 @@ import { render, screen } from '@testing-library/react';
 import * as hooks from '../hooks';
 import TodoList from './TodoList';
 
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: () => jest.fn()
+}));
+
 describe('TodoList', () => {
   const useSelectorMock = jest.spyOn(hooks, 'useAppSelector');
   beforeEach(() => {
@@ -29,8 +34,8 @@ describe('TodoList', () => {
     useSelectorMock.mockReturnValue(mockTodos);
     render(<TodoList />);
 
-    const todoListElement = screen.getByTestId('TodoList');
+    const todoItems = screen.getAllByTestId('TodoItem');
 
-    expect(todoListElement.children.length).toEqual(3);
+    expect(todoItems.length).toEqual(3);
   });
 });
