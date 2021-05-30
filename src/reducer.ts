@@ -8,14 +8,19 @@ interface ActionTodoAdded {
 interface ActionTodoToggled {
   type: 'todos/todoToggled';
   payload: number;
-}
+};
+
+interface DefaultAction {
+  type: string;
+  payload: any;
+};
 
 interface StateType {
   todos: TodoType[];
   filters: FiltersType;
 };
 
-type ActionType = ActionTodoAdded | ActionTodoToggled;
+type ActionType = ActionTodoAdded | ActionTodoToggled | DefaultAction;
 
 type TodoType = {
   id: number;
