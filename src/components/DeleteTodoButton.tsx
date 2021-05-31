@@ -7,7 +7,7 @@ interface IDeleteTodoButton {
 function DeleteTodoButton({ todoId }: IDeleteTodoButton): JSX.Element {
   const dispatch: Function = useDispatch();
 
-  const handleOnClick = () => {
+  const handleOnClick = (): void => {
     dispatch({ type: 'todos/todoDeleted', payload: todoId });
   };
 
