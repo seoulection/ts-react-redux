@@ -80,6 +80,12 @@ export default function appReducer(state: StateType = initialState, action: Acti
         })
       };
     }
+    case 'todos/todoDeleted': {
+      return {
+        ...state,
+        todos: state.todos.filter(todo => todo.id !== action.payload)
+      };
+    }
     default:
       return state;
   }

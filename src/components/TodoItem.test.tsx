@@ -26,9 +26,17 @@ describe('TodoItem', () => {
   test('it renders a status toggle button', () => {
     render(<TodoItem todo={todoItem} />);
 
-    const toggleButton = screen.getByRole('button');
+    const toggleButton = screen.getByText('Toggle Status');
 
     expect(toggleButton).toBeInTheDocument();
+  });
+
+  test('it renders a delete button', () => {
+    render(<TodoItem todo={todoItem} />);
+
+    const deleteButton = screen.getByText('Delete');
+
+    expect(deleteButton).toBeInTheDocument();
   });
 
   test('it calls the dispatch function when clicking toggle button', () => {
@@ -36,7 +44,7 @@ describe('TodoItem', () => {
     useDispatchMock.mockReturnValue(mockDispatch);
     render(<TodoItem todo={todoItem} />);
 
-    userEvent.click(screen.getByRole('button'));
+    userEvent.click(screen.getByText('Toggle Status'));
 
     const expectedAction = {
       type: 'todos/todoToggled',

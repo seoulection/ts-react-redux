@@ -44,4 +44,12 @@ describe('appReducer', () => {
 
     expect(todoItem.completed).toEqual(false);
   });
+
+  test('it deletes a todo item given its id', () => {
+    const action = { type: 'todos/todoDeleted', payload: 0 };
+
+    const result = appReducer(initialState, action);
+
+    expect(result.todos.length).toEqual(2);
+  });
 });
