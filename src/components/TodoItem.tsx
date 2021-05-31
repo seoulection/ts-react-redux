@@ -1,5 +1,4 @@
-import { useDispatch } from 'react-redux';
-import DeleteTodoButton from './DeleteTodoButton';
+import TodoButton from './TodoButton';
 import UpdateTodoForm from './UpdateTodoForm';
 
 interface ITodoItem {
@@ -14,17 +13,19 @@ type TodoType = {
 };
 
 function TodoItem({ todo }: ITodoItem): JSX.Element {
-  const dispatch: Function = useDispatch();
-
-  const toggleTodoItem = (): void => {
-    dispatch({ type: 'todos/todoToggled', payload: todo.id });
-  };
-
   return (
     <div data-testid="TodoItem">
       <h3>{todo.text} | {todo.completed ? "Complete" : "Incomplete"}</h3>
-      <button onClick={toggleTodoItem}>Toggle Status</button>
-      <DeleteTodoButton todoId={todo.id} />
+      <TodoButton
+        action="todos/todoToggled"
+        text="Toggle Status"
+        todoId={todo.id}
+      />
+      <TodoButton
+        action="todos/todoDeleted"
+        text="Delete"
+        todoId={todo.id}
+      />
       <UpdateTodoForm todoId={todo.id} />
     </div>
   );

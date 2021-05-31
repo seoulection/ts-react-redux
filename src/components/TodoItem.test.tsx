@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import * as reactRedux from 'react-redux';
 import TodoItem from './TodoItem';
 
@@ -37,20 +36,6 @@ describe('TodoItem', () => {
     const deleteButton = screen.getByText('Delete');
 
     expect(deleteButton).toBeInTheDocument();
-  });
-
-  test('it calls the dispatch function when clicking toggle button', () => {
-    const mockDispatch = jest.fn();
-    useDispatchMock.mockReturnValue(mockDispatch);
-    render(<TodoItem todo={todoItem} />);
-
-    userEvent.click(screen.getByText('Toggle Status'));
-
-    const expectedAction = {
-      type: 'todos/todoToggled',
-      payload: todoItem.id
-    };
-    expect(mockDispatch).toHaveBeenCalledWith(expectedAction);
   });
 
   test('it renders the update todo form', () => {
