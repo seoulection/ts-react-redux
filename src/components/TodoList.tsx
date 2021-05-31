@@ -13,7 +13,13 @@ function TodoList(): JSX.Element {
 
   return (
     <div data-testid="TodoList">
-      {todos.map(todo => <TodoItem key={todo.id} todo={todo} />)}
+      <ul className="list-group">
+        {todos.map(todo => (
+          <li className="list-group-item">
+            <TodoItem key={todo.id} todo={todo} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

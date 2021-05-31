@@ -4,6 +4,7 @@ interface ITodoButton {
   action: string;
   text: string;
   todoId: number;
+  className?: string;
 };
 
 function TodoButton(props: ITodoButton): JSX.Element {
@@ -15,6 +16,7 @@ function TodoButton(props: ITodoButton): JSX.Element {
 
   return (
     <button
+      className={props.className}
       data-testid="TodoButton"
       onClick={handleOnClick}
     >

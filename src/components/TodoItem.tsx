@@ -15,13 +15,16 @@ type TodoType = {
 function TodoItem({ todo }: ITodoItem): JSX.Element {
   return (
     <div data-testid="TodoItem">
-      <h3>{todo.text} | {todo.completed ? "Complete" : "Incomplete"}</h3>
+      <h3>{todo.text}</h3>
+      <p>Status: {todo.completed ? "Complete" : "Incomplete"}</p>
       <TodoButton
+        className="btn btn-primary"
         action="todos/todoToggled"
         text="Toggle Status"
         todoId={todo.id}
       />
       <TodoButton
+        className="btn btn-danger"
         action="todos/todoDeleted"
         text="Delete"
         todoId={todo.id}
