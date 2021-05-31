@@ -15,8 +15,8 @@ function TodoList(): JSX.Element {
     <div data-testid="TodoList">
       <ul className="list-group">
         {todos.map(todo => (
-          <li className="list-group-item">
-            <TodoItem key={todo.id} todo={todo} />
+          <li key={todo.id} className="list-group-item">
+            <TodoItem todo={todo} />
           </li>
         ))}
       </ul>
