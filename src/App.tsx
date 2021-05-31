@@ -7,6 +7,7 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <TodoList />
+      <br />
       <AddTodoItem />
     </div>
   );

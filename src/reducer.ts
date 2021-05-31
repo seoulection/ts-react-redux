@@ -10,6 +10,16 @@ interface ActionTodoToggled {
   payload: number;
 };
 
+interface ActionTodoDeleted {
+  type: 'todos/todoDeleted';
+  payload: number;
+};
+
+interface ActionTodoUpdated {
+  type: 'todos/todoUpdated',
+  payload: { id: number, text: string }
+};
+
 interface DefaultAction {
   type: string;
   payload: any;
@@ -20,7 +30,7 @@ interface StateType {
   filters: FiltersType;
 };
 
-type ActionType = ActionTodoAdded | ActionTodoToggled | DefaultAction;
+type ActionType = ActionTodoAdded | ActionTodoToggled | ActionTodoDeleted | ActionTodoUpdated | DefaultAction;
 
 type TodoType = {
   id: number;
@@ -84,6 +94,20 @@ export default function appReducer(state: StateType = initialState, action: Acti
       return {
         ...state,
         todos: state.todos.filter(todo => todo.id !== action.payload)
+      };
+    }
+    case 'todos/todoUpdated': {
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          if (todo.id !== action.payload.id) {
+            return todo;
+          }
+          return {
+            ...todo,
+            text: action.payload.text
+          };
+        })
       };
     }
     default:

@@ -40,9 +40,9 @@ describe('appReducer', () => {
     const action = { type: 'todos/todoToggled', payload: 0 };
 
     const result = appReducer(initialState, action);
-    const todoItem = result.todos[0];
+    const todo = result.todos.find(todo => todo.id === 0);
 
-    expect(todoItem.completed).toEqual(false);
+    expect(todo?.completed).toEqual(false);
   });
 
   test('it deletes a todo item given its id', () => {
@@ -51,5 +51,15 @@ describe('appReducer', () => {
     const result = appReducer(initialState, action);
 
     expect(result.todos.length).toEqual(2);
+  });
+
+  test('it updates a todo item given its id', () => {
+    const payload = { id: 0, text: 'Leggo' };
+    const action = { type: 'todos/todoUpdated', payload: payload };
+
+    const result = appReducer(initialState, action);
+    const todo = result.todos.find(todo => todo.id === 0);
+
+    expect(todo?.text).toEqual('Leggo');
   });
 });

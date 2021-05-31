@@ -52,4 +52,12 @@ describe('TodoItem', () => {
     };
     expect(mockDispatch).toHaveBeenCalledWith(expectedAction);
   });
+
+  test('it renders the update todo form', () => {
+    render(<TodoItem todo={todoItem} />);
+
+    const form = screen.getByTestId('UpdateTodoForm');
+
+    expect(form).toBeInTheDocument();
+  });
 });
