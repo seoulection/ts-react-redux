@@ -1,15 +1,16 @@
-import { useAppSelector } from '../hooks';
+import { useTodo } from '../hooks';
 import TodoItem from './TodoItem';
 
 type TodoType = {
-  id: number;
-  text: string | number;
-  completed: boolean;
-  color?: string;
+    id: number;
+      text: string | number;
+        completed: boolean;
+          color?: string;
 };
 
 function TodoList(): JSX.Element {
-  const todos: TodoType[] = useAppSelector(state => state.todos);
+  const { state } = useTodo();
+  const  todos: TodoType[] = state.todos;
 
   return (
     <div data-testid="TodoList">

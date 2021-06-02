@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useTodo } from '../hooks';
 
 function AddTodoItem(): JSX.Element {
   const [error, setError] = useState('');
   const [text, setText] = useState('');
-  const dispatch: Function = useDispatch();
+  const { addTodo } = useTodo();
 
   const handleOnSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
@@ -12,7 +12,7 @@ function AddTodoItem(): JSX.Element {
     if (text.length === 0) {
       setError('Cannot be blank');
     } else {
-      dispatch({ type: 'todos/todoAdded', payload: text });
+      addTodo(text);
       setText('');
     }
   };

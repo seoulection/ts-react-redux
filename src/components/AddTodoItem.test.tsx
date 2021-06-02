@@ -1,32 +1,54 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import * as reactRedux from 'react-redux';
+import * as hooks from '../hooks/useTodo';
 import AddTodoItem from './AddTodoItem';
 
 describe('AddTodoItem', () => {
-  const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+  const useTodoMock = jest.spyOn(hooks, 'useTodo');
 
   beforeEach(() => {
-    useDispatchMock.mockClear();
+    useTodoMock.mockClear();
   });
 
   test('it calls the dispatch function when clicking add todo item button', () => {
-    const mockDispatch = jest.fn();
-    useDispatchMock.mockReturnValue(mockDispatch);
+    const mockAddTodo = jest.fn();
+    const mockValue = {
+      state: {
+        todos: [],
+        filters: {
+          status: 'asdf',
+          colors: []
+        }
+      },
+      addTodo: mockAddTodo,
+      deleteTodo: jest.fn(),
+      toggleTodo: jest.fn(),
+      updateTodo: jest.fn()
+    };
+    useTodoMock.mockReturnValue(mockValue);
     render(<AddTodoItem />);
 
     userEvent.type(screen.getByLabelText(/todo text/i), 'Hello World');
     userEvent.click(screen.getByRole('button'));
 
-    const expectedAction = {
-      type: 'todos/todoAdded',
-      payload: 'Hello World'
-    };
-
-    expect(mockDispatch).toHaveBeenCalledWith(expectedAction);
+    expect(mockAddTodo).toHaveBeenCalledWith('Hello World');
   });
 
   test('it shows error text if submitting an empty todo item', () => {
+    const mockValue = {
+      state: {
+        todos: [],
+        filters: {
+          status: 'asdf',
+          colors: []
+        }
+      },
+      addTodo: jest.fn(),
+      deleteTodo: jest.fn(),
+      toggleTodo: jest.fn(),
+      updateTodo: jest.fn()
+    };
+    useTodoMock.mockReturnValue(mockValue);
     render(<AddTodoItem />);
 
     userEvent.click(screen.getByRole('button'));

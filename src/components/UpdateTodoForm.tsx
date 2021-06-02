@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useTodo } from '../hooks';
 
 interface IUpdateTodoForm {
   todoId: number;
@@ -8,7 +8,7 @@ interface IUpdateTodoForm {
 function UpdateTodoForm({ todoId }: IUpdateTodoForm): JSX.Element {
   const [text, setText] = useState('');
   const [error, setError] = useState('');
-  const dispatch: Function = useDispatch();
+  const { updateTodo } = useTodo();
 
   const handleOnSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault();
@@ -16,7 +16,7 @@ function UpdateTodoForm({ todoId }: IUpdateTodoForm): JSX.Element {
     if (text.length === 0) {
       setError('Cannot be blank');
     } else {
-      dispatch({ type: 'todos/todoUpdated', payload: { id: todoId, text: text } });
+      updateTodo(todoId, text);
       setText('');
     }
   };
