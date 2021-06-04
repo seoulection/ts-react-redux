@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import * as reactRedux from 'react-redux';
+import * as hooks from '../hooks/useTodo';
 import TodoItem from './TodoItem';
 
 describe('TodoItem', () => {
-  const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+  const useTodoMock = jest.spyOn(hooks, 'useTodo');
   const todoItem = {
     id: 0,
     text: 'Hello World',
@@ -11,7 +11,21 @@ describe('TodoItem', () => {
   };
 
   beforeEach(() => {
-    useDispatchMock.mockClear();
+    useTodoMock.mockClear();
+    const mockValue = {
+      state: {
+        todos: [],
+        filters: {
+          status: 'asdf',
+          colors: []
+        }
+      },
+      addTodo: jest.fn(),
+      deleteTodo: jest.fn(),
+      toggleTodo: jest.fn(),
+      updateTodo: jest.fn()
+    };
+    useTodoMock.mockReturnValue(mockValue);
   });
 
   test('it renders the text of a todo item', () => {

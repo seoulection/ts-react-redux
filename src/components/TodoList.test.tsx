@@ -1,16 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import * as hooks from '../hooks';
+import * as hooks from '../hooks/useTodo';
 import TodoList from './TodoList';
 
-jest.mock('react-redux', () => ({
-  ...jest.requireActual('react-redux'),
-  useDispatch: () => jest.fn()
-}));
-
 describe('TodoList', () => {
-  const useSelectorMock = jest.spyOn(hooks, 'useAppSelector');
+  const useTodoMock = jest.spyOn(hooks, 'useTodo');
   beforeEach(() => {
-    useSelectorMock.mockClear();
+    useTodoMock.mockClear();
   });
 
   test('it renders a list of 3 todo items', () => {
@@ -31,7 +26,22 @@ describe('TodoList', () => {
         completed: true
       }
     ];
-    useSelectorMock.mockReturnValue(mockTodos);
+    const mockState = {
+      todos: mockTodos,
+      filters: {
+        status: 'All',
+        colors: []
+      }
+    };
+    const mockValue = {
+      state: mockState,
+      addTodo: jest.fn(),
+      deleteTodo: jest.fn(),
+      toggleTodo: jest.fn(),
+      updateTodo: jest.fn()
+    };
+
+    useTodoMock.mockReturnValue(mockValue);
     render(<TodoList />);
 
     const todoItems = screen.getAllByTestId('TodoItem');

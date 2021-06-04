@@ -1,17 +1,13 @@
-import { useDispatch } from 'react-redux';
-
 interface ITodoButton {
-  action: string;
+  dispatchFn: Function;
   text: string;
   todoId: number;
   className?: string;
 };
 
 function TodoButton(props: ITodoButton): JSX.Element {
-  const dispatch = useDispatch();
-
   const handleOnClick = (): void => {
-    dispatch({ type: props.action, payload: props.todoId });
+    props.dispatchFn(props.todoId);
   };
 
   return (

@@ -1,3 +1,4 @@
+import { useTodo } from '../hooks';
 import TodoButton from './TodoButton';
 import UpdateTodoForm from './UpdateTodoForm';
 
@@ -13,19 +14,21 @@ type TodoType = {
 };
 
 function TodoItem({ todo }: ITodoItem): JSX.Element {
+  const { deleteTodo, toggleTodo } = useTodo();
+
   return (
     <div data-testid="TodoItem">
       <h3>{todo.text}</h3>
       <p>Status: {todo.completed ? "Complete" : "Incomplete"}</p>
       <TodoButton
         className="btn btn-primary"
-        action="todos/todoToggled"
+        dispatchFn={toggleTodo}
         text="Toggle Status"
         todoId={todo.id}
       />
       <TodoButton
         className="btn btn-danger"
-        action="todos/todoDeleted"
+        dispatchFn={deleteTodo}
         text="Delete"
         todoId={todo.id}
       />
